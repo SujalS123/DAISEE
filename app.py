@@ -188,6 +188,16 @@ def load_all_models():
 
     # Preprocessing
     scaler, svd = None, None
+    for asset in ['preprocessing.pkl', 'scaler.pkl', 'svd.pkl', 'metadata.json']:
+        fpath = MODELS_DIR / asset
+        if not fpath.exists():
+            try:
+                print(f"--- [DEPLOYMENT] Downloading {asset} ---")
+                downloaded = hf_hub_download(repo_id=HF_REPO_ID, filename=asset)
+                import shutil
+                shutil.copy(downloaded, fpath)
+            except: pass
+
     pre_path    = MODELS_DIR / 'preprocessing.pkl'
     scaler_path = MODELS_DIR / 'scaler.pkl'
     svd_path    = MODELS_DIR / 'svd.pkl'
@@ -208,11 +218,15 @@ def load_all_models():
 
     # Fallback to individual files
     if scaler is None and scaler_path.exists():
-        with open(scaler_path, 'rb') as f:
-            scaler = pickle.load(f)
+        try:
+            with open(scaler_path, 'rb') as f:
+                scaler = pickle.load(f)
+        except: pass
     if svd is None and svd_path.exists():
-        with open(svd_path, 'rb') as f:
-            svd = pickle.load(f)
+        try:
+            with open(svd_path, 'rb') as f:
+                svd = pickle.load(f)
+        except: pass
 
     # Metadata
     metadata = {}
