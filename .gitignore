@@ -1,0 +1,21 @@
+# Models and large files
+exported_models/
+*.keras
+*.pkl
+*.json
+
+# Python environment
+venv/
+__pycache__/
+*.pyc
+
+# Local deployment scripts
+upload_to_hf.py
+deploy_to_spaces.py
+deploy_docker.py
+debug_mp.py
+Dockerfile
+
+# OS files
+.DS_Store
+Thumbs.db

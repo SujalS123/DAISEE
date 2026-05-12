@@ -1,0 +1,9 @@
+streamlit
+tensorflow-cpu
+numpy<2.0.0
+pandas
+scikit-learn
+matplotlib
+seaborn
+huggingface-hub
+mediapipe==0.10.9
